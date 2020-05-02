@@ -1,4 +1,4 @@
-displayName = Doug's Minions
-author = Doug
+displayName = RealClasses
+author = TheInternetIsReal
 version = 1.1.5
 notes = Restructured code for player classes. Removed ability specific keybinds in favor of generic ability keys.
