@@ -1,4 +1,4 @@
 displayName = RealClasses
 author = TheInternetIsReal
-version = 1.1.5
-notes = Restructured code for player classes. Removed ability specific keybinds in favor of generic ability keys.
+version = 1.1.8
+notes = Fixed cooldownbar bug causing it to be redrawn on top of itself. Cooldown bar is in. "Test" class has access to all four abilities and the one passive currently for testing. Every player is the test class for now.

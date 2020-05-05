@@ -4,6 +4,8 @@ using RealClasses.UI;
 using Microsoft.Xna.Framework;
 using Terraria;
 using System.Collections.Generic;
+using RealClasses.Classes;
+using RealClasses.Players;
 
 namespace RealClasses
 {
@@ -13,13 +15,13 @@ namespace RealClasses
 
         //Key bindings
         public static ModHotKey ability1;
+        public static ModHotKey ability2;
+        public static ModHotKey ability3;
+        public static ModHotKey ability4;
 
         ////UI
-        //Get an instance of our UI class
-        internal ExampleUI ExampleUI;
+        //CooldownBar
         internal CooldownBar CooldownBar;
-        //Get a UserInterface object to place it in later
-        private UserInterface _exampleUserInterface;
         private UserInterface _cooldownBar;
 
         public RealClasses()
@@ -36,16 +38,14 @@ namespace RealClasses
             mod = this;
 
             //These show up in the Controls -> Key Bind section of the menu in game
-            ability1 = RegisterHotKey("Ability #1", "g");
+            ability1 = RegisterHotKey("Ability #1", "r");
+            ability2 = RegisterHotKey("Ability #2", "f");
+            ability3 = RegisterHotKey("Ability #3", "c");
+            ability4 = RegisterHotKey("Ability #4", "g");
 
-            //Get our ExampleUI and activate it (I guess)
-            ExampleUI = new ExampleUI();
-            ExampleUI.Activate();
+            //Cooldown bar setup
             CooldownBar = new CooldownBar();
             CooldownBar.Activate();
-            //Make a new UI interface object and set the state to our states
-            _exampleUserInterface = new UserInterface();
-            _exampleUserInterface.SetState(ExampleUI);
             _cooldownBar = new UserInterface();
             _cooldownBar.SetState(CooldownBar);
         }
@@ -53,13 +53,7 @@ namespace RealClasses
         //Updates whatever gametime is
         public override void UpdateUI(GameTime gameTime)
         {
-            //if (ExampleUI.Visible)
-            //{
-            _exampleUserInterface?.Update(gameTime);
             _cooldownBar?.Update(gameTime);
-            //}
-
-            //ExamplePersonUserInterface?.Update(gameTime);
         }
 
         //Draw the UI
@@ -72,11 +66,7 @@ namespace RealClasses
                     "ExampleMod: Coins Per Minute",
                     delegate
                     {
-                        //if (ExampleUI.Visible)
-                        //{
-                            _exampleUserInterface.Draw(Main.spriteBatch, new GameTime());
-                            _cooldownBar.Draw(Main.spriteBatch, new GameTime());
-                        //}
+                        _cooldownBar.Draw(Main.spriteBatch, new GameTime());
                         return true;
                     },
                     InterfaceScaleType.UI)

@@ -1,0 +1,103 @@
+﻿using Terraria;
+using Terraria.ModLoader;
+using RealClasses.Abilities;
+using RealClasses.Passives;
+using static Terraria.ModLoader.ModContent;
+
+namespace RealClasses.Classes
+{
+    class TestClass : PlayerClass
+    {
+        int level;
+        Player player;// = new Player();
+        //Ability placeholders
+        public IAbility ability1;
+        public IAbility ability2;
+        public IAbility ability3;
+        public IAbility ability4;
+        public IPassive primaryPassive;
+
+        //Constructor. Needs player reference and level to set skills and stats correctly (when progression is a thing)
+        public TestClass(Player player, int level)
+        {
+            this.player = player;
+            this.level = level;
+            //Set abilities and hotkeys manually for now
+            ability1 = new BerserkAbility();
+            ability2 = new EvasionAbility();
+            ability3 = new HealBombAbility();
+            ability4 = new DemonAbility();
+            primaryPassive = new LifeRegenPassive();
+
+            //if (ModContent.GetInstance<RealClasses>().CooldownBar.HasChild(ability1.abilityButton) == true)
+            //{
+            //    ModContent.GetInstance<RealClasses>().CooldownBar.RemoveChild(ability1.abilityButton);
+            //}
+
+
+            //Fill up cooldown bar with abilities
+            ModContent.GetInstance<RealClasses>().CooldownBar.SetButtons(ability1.abilityButton, ability2.abilityButton, ability3.abilityButton, ability4.abilityButton, primaryPassive.passiveButton);
+        }
+
+        public override void GiveHotKeys()
+        {
+            if (RealClasses.ability1.GetAssignedKeys().Count > 0)
+            {
+                ability1.GiveHotKey(RealClasses.ability1.GetAssignedKeys()[0].ToString());
+            }
+            else ability1.GiveHotKey("Empty");
+
+            if (RealClasses.ability2.GetAssignedKeys().Count > 0)
+            {
+                ability2.GiveHotKey(RealClasses.ability2.GetAssignedKeys()[0].ToString());
+            }
+            else ability2.GiveHotKey("Empty");
+
+            if (RealClasses.ability3.GetAssignedKeys().Count > 0)
+            {
+                ability3.GiveHotKey(RealClasses.ability3.GetAssignedKeys()[0].ToString());
+            }
+            else ability3.GiveHotKey("Empty");
+
+            if (RealClasses.ability4.GetAssignedKeys().Count > 0)
+            {
+                ability4.GiveHotKey(RealClasses.ability4.GetAssignedKeys()[0].ToString());
+            }
+            else ability4.GiveHotKey("Empty");
+
+        }
+
+        public override void DoPassives()
+        {
+            primaryPassive.DoPassive(player);
+        }
+
+        public override void DoCooldowns()
+        {
+            ability1.DoCooldown();
+            ability2.DoCooldown();
+            ability3.DoCooldown();
+            ability4.DoCooldown();
+        }
+
+        public override void UseAbility(ModHotKey key)
+        {
+            if (key == RealClasses.ability1)
+            {
+                ability1.UseAbility(player);
+            }
+            else if (key == RealClasses.ability2)
+            {
+                ability2.UseAbility(player);
+            }
+            else if (key == RealClasses.ability3)
+            {
+                ability3.UseAbility(player);
+            }
+            else if (key == RealClasses.ability4)
+            {
+                ability4.UseAbility(player);
+            }
+        }
+    }
+}

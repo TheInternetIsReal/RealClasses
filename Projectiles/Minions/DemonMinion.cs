@@ -18,7 +18,8 @@ namespace RealClasses.Projectiles.Minions
     {
 
         public int count = 0;
-    
+        Color blood = new Color(255, 51, 51);
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Demon");
@@ -73,6 +74,14 @@ namespace RealClasses.Projectiles.Minions
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
                 projectile.friendly = false;
+        }
+
+        public override void Kill(int timeLeft)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                Dust.NewDust(projectile.position, projectile.width, projectile.height, 6, 0, 0, 150, blood, 2.0f);
+            }
         }
 
         public override void AI()

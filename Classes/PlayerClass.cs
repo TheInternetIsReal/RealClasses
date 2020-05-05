@@ -2,6 +2,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using RealClasses.Abilities;
+using RealClasses.UI;
 
 namespace RealClasses.Classes
 {
@@ -14,6 +15,7 @@ namespace RealClasses.Classes
         List<string> abilities = new List<string>();
         List<string> passives = new List<string>();
         IAbility primaryAbility;
+        public CooldownBar cooldownBar;
         //Stats to come here...
 
         //Default constructor. Until a class is set...
@@ -27,6 +29,11 @@ namespace RealClasses.Classes
         {
             this.player = player;
             this.level = level;
+        }
+
+        public virtual void GiveHotKeys()
+        {
+
         }
 
         //Passives. Called each frame from MyPlayer

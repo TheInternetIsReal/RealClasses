@@ -53,7 +53,6 @@ C:\Users\dclen\Documents\My Games\Terraria\ModLoader\Mod Sources\RealClasses\bin
 C:\Users\dclen\Documents\My Games\Terraria\ModLoader\Mod Sources\RealClasses\bin\Debug\net45\Terraria.xml
 C:\Users\dclen\Documents\My Games\Terraria\ModLoader\Mod Sources\RealClasses\bin\Debug\net45\MonoMod.RuntimeDetour.xml
 C:\Users\dclen\Documents\My Games\Terraria\ModLoader\Mod Sources\RealClasses\bin\Debug\net45\MonoMod.Utils.xml
-C:\Users\dclen\Documents\My Games\Terraria\ModLoader\Mod Sources\RealClasses\obj\Debug\net45\RealClasses.csprojAssemblyReference.cache
 C:\Users\dclen\Documents\My Games\Terraria\ModLoader\Mod Sources\RealClasses\obj\Debug\net45\RealClasses.csproj.CoreCompileInputs.cache
 C:\Users\dclen\Documents\My Games\Terraria\ModLoader\Mod Sources\RealClasses\obj\Debug\net45\RealClasses.AssemblyInfoInputs.cache
 C:\Users\dclen\Documents\My Games\Terraria\ModLoader\Mod Sources\RealClasses\obj\Debug\net45\RealClasses.AssemblyInfo.cs
@@ -62,3 +61,4 @@ C:\Users\dclen\Documents\My Games\Terraria\ModLoader\Mod Sources\RealClasses\bin
 C:\Users\dclen\Documents\My Games\Terraria\ModLoader\Mod Sources\RealClasses\bin\Debug\net45\RealClasses.pdb
 C:\Users\dclen\Documents\My Games\Terraria\ModLoader\Mod Sources\RealClasses\obj\Debug\net45\RealClasses.dll
 C:\Users\dclen\Documents\My Games\Terraria\ModLoader\Mod Sources\RealClasses\obj\Debug\net45\RealClasses.pdb
+C:\Users\dclen\Documents\My Games\Terraria\ModLoader\Mod Sources\RealClasses\obj\Debug\net45\RealClasses.csprojAssemblyReference.cache

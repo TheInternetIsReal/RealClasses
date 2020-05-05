@@ -32,6 +32,7 @@ namespace RealClasses.Projectiles
             projectile.scale = 1f;
             projectile.tileCollide = true;
             projectile.penetrate = 5;
+            projectile.timeLeft = 480;
             //Usually sprite width
             drawOffsetX = -128;
             //Usually sprite height
@@ -49,8 +50,8 @@ namespace RealClasses.Projectiles
                 Dust.NewDust(projectile.position, projectile.width, projectile.height, 15, 0, 0, 150, healBombColor, 3.0f);
 
                 //Get the owner of the projectile and reset its cooldown
-                Player player = Main.player[projectile.owner];
-                player.GetModPlayer<MyPlayer>().healBombCDCounter = player.GetModPlayer<MyPlayer>().healBombCD;
+                //Player player = Main.player[projectile.owner];
+                //player.GetModPlayer<MyPlayer>().healBombCDCounter = player.GetModPlayer<MyPlayer>().healBombCD;
 
             }
             

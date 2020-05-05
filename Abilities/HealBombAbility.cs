@@ -4,11 +4,29 @@ using static Terraria.ModLoader.ModContent;
 using RealClasses.Players;
 using RealClasses.Projectiles;
 using Microsoft.Xna.Framework;
+using Terraria.UI;
+using RealClasses.UI.AbilityButtons;
 
 namespace RealClasses.Abilities
 {
     class HealBombAbility : IAbility
     {
+        //For IAbility
+        public AbilityButton abilityButton { get; set; }
+        public int Cooldown  // read-write instance property
+        {
+            get
+            {
+                return _cooldown;
+            }
+            set
+            {
+                _cooldown = value;
+            }
+        }
+        public int _cooldown = 480;
+        public int cooldownCounter = 0;
+
         //For abilities
         public float projSpeed = 5;  
         Vector2 playerOffset = new Vector2(12, 24); //Center on chest height and away from bosy
@@ -17,23 +35,43 @@ namespace RealClasses.Abilities
         public int projSpawnOffset = 100; //Frames ahead in time to spawn the projectile
         Vector2 normalizedLineSpeed = new Vector2(); //Used to make sure every projectile moves at the same spped and is multiplied by speed to speed them up
 
+        public HealBombAbility()
+        {
+            //Get instance to the berserk UI button
+            abilityButton = new HealBombButton();
+        }
+
+        public void GiveHotKey(string hotKey)
+        {
+            abilityButton.hotKey = hotKey;
+        }
+
+        public void DoCooldown()
+        {
+            if (cooldownCounter == 0)
+            {
+                //continue
+            }
+            else cooldownCounter--;
+        }
+
         public void UseAbility(Player player)
         {
-            //If cooled down
-            if (player.GetModPlayer<MyPlayer>().healBombCDCounter == 0)
+
+            if (player.ownedProjectileCounts[ProjectileType<Projectiles.HealBombProjectile>()] > 0)
             {
-                if (player.ownedProjectileCounts[ProjectileType<Projectiles.HealBombProjectile>()] > 0)
-                {
-                    //continue
-                    player.GetModPlayer<MyPlayer>().popHealBomb = true;
-                }
-                else
+                player.GetModPlayer<MyPlayer>().popHealBomb = true;
+            }
+            else if (cooldownCounter == 0)
+            {
+                abilityButton.cooldown = Cooldown;
+                cooldownCounter = Cooldown;
                 {
                     //Set the projectile spawn at the player position but near his chest and in front of him
                     projSpawn = player.position + playerOffset;
                     //Get a normalized set of coords so the projectiles don't go faster the farther the mouse is away from the player
                     normalizedLine = Vector2.Normalize((Main.MouseWorld - projSpawn));
-                    //Multiply the normalized angle/velocity by your desired speed from above
+                    //Multiply the normalized angle/velocity by your desired speed from above to speed it up
                     normalizedLineSpeed = normalizedLine * projSpeed;
 
                     //Spawn the projectile. The following sets the spawn point, then moves it along the line a bit by muliplying the NORMALIZED X velocity (not with speed!!) by an arbitrary projSpawnOffset.

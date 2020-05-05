@@ -1,0 +1,5 @@
+1. Experience system and bar
+2. Choose class in gui
+3. Saving and loading
+4. More abilities
+5. Progression for each class
