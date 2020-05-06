@@ -1,5 +1,7 @@
-1. Experience system and bar
+-1. Put button textures in abilities and feed it to the ui buttons instead of the other way around
+0. Hover over buttons to see description
+1. More abilities
 2. Choose class in gui
 3. Saving and loading
-4. More abilities
+4. Experience system and bar
 5. Progression for each class

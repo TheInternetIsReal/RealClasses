@@ -7,33 +7,18 @@ namespace RealClasses.Classes
 {
     class SummonerClass : PlayerClass
     {
-        int level;
-        Player player = new Player();
-        List<string> abilities = new List<string>();
-        List<string> passives = new List<string>();
-        IAbility primaryAbility;
-
-        //Get player reference and level (likely from file later)
-        public SummonerClass(Player player, int level)
+        public SummonerClass(Player player, int level) : base(player, level)
         {
             this.player = player;
             this.level = level;
-            primaryAbility = new DemonAbility();
+            ability1 = new DemonAbility();
+            ModContent.GetInstance<RealClasses>().CooldownBar.SetButtons(ability1.GetButton(), ability1.GetButton(), ability1.GetButton(), ability1.GetButton(), ability1.GetButton());
         }
 
         //Passives. Called each frame from MyPlayer
         public override void DoPassives()
         {
 
-        }
-
-        //Active Abilities
-        public override void UseAbility(ModHotKey key)
-        {
-            if (key == RealClasses.ability1)
-            {
-                primaryAbility.UseAbility(player);
-            }
         }
     }
 }

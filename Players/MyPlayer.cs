@@ -21,7 +21,6 @@ namespace RealClasses.Players
         public bool popHealBomb = false;
 
         //For class choice (possibly do these in Mod.Load later)
-        public string classString = "None";
         public PlayerClass playerClass;
 
 
@@ -100,8 +99,9 @@ namespace RealClasses.Players
                 //Cleanup cooldown bar
                 ModContent.GetInstance<RealClasses>().CooldownBar.Cleanup();
 
-                //Set default class of none to mkae sure tehre are no errors
+                //Setting to test class. Abilities and cooldown bar will be constructed
                 playerClass = new TestClass(player, 100);
+
                 //Set player class. Add if cod ehere later to choose class
                 //if (player.name == "Unhallowed")
                 //{

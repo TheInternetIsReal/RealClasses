@@ -10,15 +10,12 @@ namespace RealClasses.UI.AbilityButtons
 {
     class EvasionButton : AbilityButton
     {
-        Color normalColor = new Color(255, 255, 255, 255);
-        Color opaqueColor = new Color(128, 128, 128, 10);
-        public Texture2D _texture = ModContent.GetTexture("RealClasses/UI/AbilityButtons/EvasionButton");
-        public float ImageScale = 1f;
-
-
-        //Set some variables from UIElement on cosntruction
         public EvasionButton()
         {
+            normalColor = new Color(255, 255, 255, 255);
+            opaqueColor = new Color(128, 128, 128, 10);
+            _texture = ModContent.GetTexture("RealClasses/UI/AbilityButtons/EvasionButton");
+            ImageScale = 1f;
             base.Width.Set((float)this._texture.Width, 0f);
             base.Height.Set((float)this._texture.Height, 0f);
         }

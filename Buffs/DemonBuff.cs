@@ -29,7 +29,7 @@ namespace RealClasses.Buffs
             //Else create the minion
             else
             {
-                Projectile.NewProjectile(player.position.X + (float)(player.width / 2), player.position.Y + (float)(player.height / 2), 0f, 0f, mod.ProjectileType("DemonMinion"), 100, 0f, player.whoAmI, 0f, 0f);
+                Projectile.NewProjectile(player.position.X + (float)(player.width / 2), player.position.Y + (float)(player.height / 2), 0f, 0f, mod.ProjectileType("DemonMinion"), 50, 0f, player.whoAmI, 0f, 0f);
                 //player.DelBuff(buffIndex);
                 //buffIndex--;  
             }

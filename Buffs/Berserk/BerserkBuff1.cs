@@ -14,7 +14,7 @@ namespace RealClasses.Buffs.Berserk
         //Set the defaults of the buff
         {
             DisplayName.SetDefault("Berserk");
-            Description.SetDefault("+5% damage. Pay 10% health to deal 5% more damage. Stacks 5 times");
+            Description.SetDefault("+10% damage. Pay 10% health to deal 10% more damage. Stacks 3 times");
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = false;
 
@@ -24,7 +24,7 @@ namespace RealClasses.Buffs.Berserk
         {
             //Boost players damage by 5%      
             //player.allDamage = (player.allDamage + (float)player.GetModPlayer<MyPlayer>().dmgBoost);
-            player.allDamage = player.allDamage + 0.05f;
+            player.allDamage = player.allDamage + 0.10f;
         }
     }
 }

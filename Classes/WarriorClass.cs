@@ -8,44 +8,29 @@ namespace RealClasses.Classes
 {
     public class WarriorClass : PlayerClass
     {
-        int level;
-        Player player;// = new Player();
         //Ability placeholders
-        public IAbility primaryAbility;
-        public IAbility secondaryAbility;
-        public IPassive primaryPassive;
 
         //Constructor. Needs player reference and level to set skills and stats correctly (when progression is a thing)
-        public WarriorClass(Player player,  int level)
+        public WarriorClass(Player player,  int level) : base(player, level)
         {
             this.player = player;
             this.level = level;
             //Set ability manually for now
-            primaryAbility = new BerserkAbility();
+            ability1 = new BerserkAbility();
             primaryPassive = new LifeRegenPassive();
             //Fill up cooldown bar with abilities
-            ModContent.GetInstance<RealClasses>().CooldownBar.SetButtons(primaryAbility.abilityButton, primaryAbility.abilityButton, primaryAbility.abilityButton, primaryAbility.abilityButton, primaryPassive.passiveButton);
-        }
-
-        public override void DoPassives()
-        {
-            primaryPassive.DoPassive(player);
-        }
-
-        public override void DoCooldowns()
-        {
-
+            ModContent.GetInstance<RealClasses>().CooldownBar.SetButtons(ability1.GetButton(), ability1.GetButton(), ability1.GetButton(), ability1.GetButton(), primaryPassive.GetButton());
         }
 
         public override void UseAbility(ModHotKey key)
         {
             if (key == RealClasses.ability1)
             {
-                primaryAbility.UseAbility(player);
+                ability1.UseAbility(player);
             }
             else if (key == RealClasses.ability2)
             {
-                primaryAbility.UseAbility(player);
+                ability1.UseAbility(player);
             }
         }     
     }

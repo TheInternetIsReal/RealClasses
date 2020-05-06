@@ -8,35 +8,26 @@ namespace RealClasses.Classes
 {
     class TestClass : PlayerClass
     {
-        int level;
-        Player player;// = new Player();
         //Ability placeholders
-        public IAbility ability1;
-        public IAbility ability2;
-        public IAbility ability3;
-        public IAbility ability4;
-        public IPassive primaryPassive;
+        public Ability ability2;
+        public Ability ability3;
+        public Ability ability4;
 
-        //Constructor. Needs player reference and level to set skills and stats correctly (when progression is a thing)
-        public TestClass(Player player, int level)
+        //Constructor. Use base because those live in the parent and aren't above ^
+        public TestClass(Player player, int level) : base(player, level)
         {
             this.player = player;
             this.level = level;
-            //Set abilities and hotkeys manually for now
-            ability1 = new BerserkAbility();
+
+            //Set abilities and hotkeys manually for now. First one is an experiment from PlayerClass. This is really what sets each class apart so far
+            base.ability1 = new BerserkAbility();
             ability2 = new EvasionAbility();
             ability3 = new HealBombAbility();
             ability4 = new DemonAbility();
             primaryPassive = new LifeRegenPassive();
 
-            //if (ModContent.GetInstance<RealClasses>().CooldownBar.HasChild(ability1.abilityButton) == true)
-            //{
-            //    ModContent.GetInstance<RealClasses>().CooldownBar.RemoveChild(ability1.abilityButton);
-            //}
-
-
             //Fill up cooldown bar with abilities
-            ModContent.GetInstance<RealClasses>().CooldownBar.SetButtons(ability1.abilityButton, ability2.abilityButton, ability3.abilityButton, ability4.abilityButton, primaryPassive.passiveButton);
+            ModContent.GetInstance<RealClasses>().CooldownBar.SetButtons(ability1.GetButton(), ability2.GetButton(), ability3.GetButton(), ability4.GetButton(), primaryPassive.GetButton());
         }
 
         public override void GiveHotKeys()
@@ -67,17 +58,17 @@ namespace RealClasses.Classes
 
         }
 
-        public override void DoPassives()
-        {
-            primaryPassive.DoPassive(player);
-        }
-
         public override void DoCooldowns()
         {
             ability1.DoCooldown();
             ability2.DoCooldown();
             ability3.DoCooldown();
             ability4.DoCooldown();
+        }
+
+        public override void DoPassives()
+        {
+            primaryPassive.DoPassive(player);
         }
 
         public override void UseAbility(ModHotKey key)

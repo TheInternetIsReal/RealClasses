@@ -9,78 +9,54 @@ using RealClasses.UI.AbilityButtons;
 
 namespace RealClasses.Abilities
 {
-    class HealBombAbility : IAbility
+    class HealBombAbility : Ability
     {
-        //For IAbility
-        public AbilityButton abilityButton { get; set; }
-        public int Cooldown  // read-write instance property
-        {
-            get
-            {
-                return _cooldown;
-            }
-            set
-            {
-                _cooldown = value;
-            }
-        }
-        public int _cooldown = 480;
-        public int cooldownCounter = 0;
-
-        //For abilities
+        //Ability specific
         public float projSpeed = 5;  
-        Vector2 playerOffset = new Vector2(12, 24); //Center on chest height and away from bosy
-        Vector2 projSpawn = new Vector2(); //Where the projectile will be spawned (kind of, see below...)
-        Vector2 normalizedLine = new Vector2(); //Used in conjunction with projSpawnOffset to spawn the projectile a little in front of the player
+        Vector2 playerOffset = new Vector2(12, 24); //Center on chest height and away from body
+        Vector2 projSpawn; //Where the projectile will be spawned (kind of, see next line)
         public int projSpawnOffset = 100; //Frames ahead in time to spawn the projectile
-        Vector2 normalizedLineSpeed = new Vector2(); //Used to make sure every projectile moves at the same spped and is multiplied by speed to speed them up
+        Vector2 normalizedLine; //Normalizes the line between the projectiel and target (mouse) so that it always flies the same speed
+        Vector2 normalizedLineSpeed; //normalized line multiplied by the speed you desire
 
         public HealBombAbility()
         {
             //Get instance to the berserk UI button
             abilityButton = new HealBombButton();
+            cooldownCounter = 0;
+            cooldown = 480;
         }
 
-        public void GiveHotKey(string hotKey)
-        {
-            abilityButton.hotKey = hotKey;
-        }
-
-        public void DoCooldown()
-        {
-            if (cooldownCounter == 0)
-            {
-                //continue
-            }
-            else cooldownCounter--;
-        }
-
-        public void UseAbility(Player player)
+        public override void UseAbility(Player player)
         {
 
             if (player.ownedProjectileCounts[ProjectileType<Projectiles.HealBombProjectile>()] > 0)
             {
+                //This needs to be handled better. How can I directly destroy this projectile?
                 player.GetModPlayer<MyPlayer>().popHealBomb = true;
             }
             else if (cooldownCounter == 0)
             {
-                abilityButton.cooldown = Cooldown;
-                cooldownCounter = Cooldown;
-                {
-                    //Set the projectile spawn at the player position but near his chest and in front of him
-                    projSpawn = player.position + playerOffset;
-                    //Get a normalized set of coords so the projectiles don't go faster the farther the mouse is away from the player
-                    normalizedLine = Vector2.Normalize((Main.MouseWorld - projSpawn));
-                    //Multiply the normalized angle/velocity by your desired speed from above to speed it up
-                    normalizedLineSpeed = normalizedLine * projSpeed;
+                abilityButton.SetCooldown(cooldown);
+                cooldownCounter = cooldown;
 
-                    //Spawn the projectile. The following sets the spawn point, then moves it along the line a bit by muliplying the NORMALIZED X velocity (not with speed!!) by an arbitrary projSpawnOffset.
-                    //projSpawnOffset is essentially a frame value where the projectile will spawn X frames into the future on the give line. This simply spawns the projectile in front of the player instead of
-                    //in the middle of their body (it has a long tail and the hitbox is on the very front tip which is where it spawns normally, putting the tail in the player).
-                    Projectile.NewProjectile(projSpawn.X + normalizedLine.X * projSpawnOffset, projSpawn.Y + normalizedLine.Y * projSpawnOffset, normalizedLineSpeed.X, normalizedLineSpeed.Y, ModContent.ProjectileType<HealBombProjectile>(), 100, 0f, Main.myPlayer, 0f, 0f);
+                //Set the projectile spawn at the player position but near his chest and in front of him
+                projSpawn = player.position + playerOffset;
+                //Get a normalized set of velocity so the projectile doesn't go faster the farther the mouse is away from the player
+                normalizedLine = Vector2.Normalize((Main.MouseWorld - projSpawn));
+                //Multiply the normalized velocity by your desired speed from above to speed it up
+                normalizedLineSpeed = normalizedLine * projSpeed;
 
-                    //Cooldown is reset over in the projectile code
-                }
+                //Spawn the projectile ahead of the actual spawn point X times the amount the velocity. If X equal 10 and velocity is (2, 2) then spawn it + (20, 20) pixels 
+                //from the projSpawn along the intended line. What this does is spawns the projectile farther in front of the player so that the tail of the sprite isn't
+                //behind him
+                Projectile.NewProjectile(
+                    projSpawn.X + projSpawnOffset *normalizedLine.X, 
+                    projSpawn.Y + projSpawnOffset * normalizedLine.Y, 
+                    normalizedLineSpeed.X, 
+                    normalizedLineSpeed.Y, 
+                    ModContent.ProjectileType<HealBombProjectile>(), 
+                    100, 0f, Main.myPlayer, 0f, 0f);
             }
         }
     }

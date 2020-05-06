@@ -8,17 +8,14 @@ using RealClasses.UI.AbilityButtons;
 
 namespace RealClasses.Passives
 {
-    public class LifeRegenPassive : IPassive
+    public class LifeRegenPassive : Passive
     {
-        //For IPassive
-        public AbilityButton passiveButton { get; set; }
-
         public LifeRegenPassive()
         {
             passiveButton = new LifeRegenButton();
         }
 
-        public void DoPassive(Player player)
+        public override void DoPassive(Player player)
         {
             if (player.GetModPlayer<MyPlayer>().outOfCombat)
             {
@@ -32,7 +29,7 @@ namespace RealClasses.Passives
             {
                 //Clear buff, set button to opaque and set cooldown to out of combat timer
                 player.ClearBuff(ModContent.BuffType<LifeRegenBuff>());
-                passiveButton.cooldown = player.GetModPlayer<MyPlayer>().outOfCombatCounter;
+                passiveButton.SetCooldown(player.GetModPlayer<MyPlayer>().outOfCombatCounter);
             }
         }
     }

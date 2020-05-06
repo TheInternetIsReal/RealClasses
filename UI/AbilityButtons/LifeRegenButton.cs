@@ -8,25 +8,12 @@ namespace RealClasses.UI.AbilityButtons
 {
     public class LifeRegenButton : AbilityButton
     {
-        Color normalColor = new Color(255, 255, 255, 255);
-        Color opaqueColor = new Color(128, 128, 128, 1);
-
-        //Required for IUIAbilityButton
-        public float ImageScale { get => 1f; }
-        public Texture2D _texture { get => ModContent.GetTexture("RealClasses/UI/AbilityButtons/LifeRegenButton"); }
-
-
-        //Set some variables from UIElement on cosntruction
         public LifeRegenButton()
         {
-
-            base.Width.Set((float)this._texture.Width, 0f);
-            base.Height.Set((float)this._texture.Height, 0f);
-        }
-
-        //With a cooldown
-        public LifeRegenButton(int cooldown)
-        {
+            normalColor = new Color(255, 255, 255, 255);
+            opaqueColor = new Color(128, 128, 128, 1);
+            ImageScale = 1f;
+            _texture = ModContent.GetTexture("RealClasses/UI/AbilityButtons/LifeRegenButton");
             base.Width.Set((float)this._texture.Width, 0f);
             base.Height.Set((float)this._texture.Height, 0f);
         }

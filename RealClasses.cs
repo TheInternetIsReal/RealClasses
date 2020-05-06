@@ -38,10 +38,10 @@ namespace RealClasses
             mod = this;
 
             //These show up in the Controls -> Key Bind section of the menu in game
-            ability1 = RegisterHotKey("Ability #1", "r");
-            ability2 = RegisterHotKey("Ability #2", "f");
-            ability3 = RegisterHotKey("Ability #3", "c");
-            ability4 = RegisterHotKey("Ability #4", "g");
+            ability1 = RegisterHotKey("Ability #1", "R");
+            ability2 = RegisterHotKey("Ability #2", "F");
+            ability3 = RegisterHotKey("Ability #3", "C");
+            ability4 = RegisterHotKey("Ability #4", "G");
 
             //Cooldown bar setup
             CooldownBar = new CooldownBar();
