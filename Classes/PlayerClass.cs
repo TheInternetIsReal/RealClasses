@@ -19,14 +19,14 @@ namespace RealClasses.Classes
         protected Passive primaryPassive;
         //Stats to come?
 
-        //We at least need a player, and level later. This should eventually force 4 abilities and one passive, unless calsses can have less than that many skills...
+        //We at least need a player, and level later. This should eventually force 4 abilities and one passive, unless classes can have less than that many skills...
         public PlayerClass(Player player, int level)
         {
             this.player = player;
             this.level = level;
         }
 
-        //Shoves the ModHotKey binding to the ability button tos how on the CooldowBar. Heavily chained but required due to lack of Update() past this point
+        //Shoves the ModHotKey binding to the ability button to show on the CooldowBar. Heavily chained but required due to lack of Update() past this point
         public virtual void GiveHotKeys()
         {
             if (RealClasses.ability1.GetAssignedKeys().Count > 0)

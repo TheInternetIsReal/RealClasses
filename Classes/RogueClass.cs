@@ -12,7 +12,7 @@ namespace RealClasses.Classes
             this.player = player;
             this.level = level;
             //Set ability manually for now
-            ability1 = new EvasionAbility();
+            ability1 = new EvasionAbility(player);
             ModContent.GetInstance<RealClasses>().CooldownBar.SetButtons(ability1.GetButton(), ability1.GetButton(), ability1.GetButton(), ability1.GetButton(), ability1.GetButton());
         }
 

@@ -2,7 +2,7 @@
 using Terraria.ModLoader;
 using RealClasses.Abilities;
 using RealClasses.Passives;
-using static Terraria.ModLoader.ModContent;
+using RealClasses.Players;
 
 namespace RealClasses.Classes
 {
@@ -20,10 +20,12 @@ namespace RealClasses.Classes
             this.level = level;
 
             //Set abilities and hotkeys manually for now. First one is an experiment from PlayerClass. This is really what sets each class apart so far
-            base.ability1 = new BerserkAbility();
-            ability2 = new EvasionAbility();
-            ability3 = new HealBombAbility();
-            ability4 = new DemonAbility();
+            ability1 = new LeapAbility(player);
+            player.GetModPlayer<MyPlayer>().ActiveAbilities.Add(ability1);
+            ability2 = new EvasionAbility(player);
+            player.GetModPlayer<MyPlayer>().ActiveAbilities.Add(ability2);
+            ability3 = new HealBombAbility(player);
+            ability4 = new DemonAbility(player);
             primaryPassive = new LifeRegenPassive();
 
             //Fill up cooldown bar with abilities

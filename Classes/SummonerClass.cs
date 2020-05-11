@@ -11,7 +11,7 @@ namespace RealClasses.Classes
         {
             this.player = player;
             this.level = level;
-            ability1 = new DemonAbility();
+            ability1 = new DemonAbility(player);
             ModContent.GetInstance<RealClasses>().CooldownBar.SetButtons(ability1.GetButton(), ability1.GetButton(), ability1.GetButton(), ability1.GetButton(), ability1.GetButton());
         }
 

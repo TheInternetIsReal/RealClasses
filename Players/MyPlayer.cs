@@ -2,7 +2,9 @@
 using Terraria.GameInput;
 using Terraria.ModLoader;
 using RealClasses.Classes;
-using RealClasses.Buffs;
+using RealClasses.Abilities;
+using System.Collections.Generic;
+
 
 namespace RealClasses.Players
 {
@@ -19,14 +21,23 @@ namespace RealClasses.Players
         public bool canBeHit = true;
         //Can I use projectile kill() later?
         public bool popHealBomb = false;
+        public bool preHurt = true;
 
         //For class choice (possibly do these in Mod.Load later)
         public PlayerClass playerClass;
 
+        //A list of all current abilities instantiated on the player. Used to shove things like PreUpdate() to them since inheriting from ModPlayer was a fail
+        //This list is called in every method below that is required by an ability later on
+        //Ability will have matching functions ready to be triggerred later (say PreUpdate())
+        public List<Ability> ActiveAbilities = new List<Ability>();
 
-    ////Methods////
+        //A list to hold NPCs that the player is invuln to currently. Used by skills like Leap
+        public List<NPC> InvulnNPCs = new List<NPC>();
 
-    public override void Initialize()
+
+        ////Methods////
+
+        public override void Initialize()
         {
             //This happens during character select screen. Possible a good place to load things if not in RealClasses.Load()
         }
@@ -47,30 +58,49 @@ namespace RealClasses.Players
             outOfCombatCounter = outOfCombatFrames;
         }
 
-        //Can the player be hit by NPC? Defaults to true. Changed by some skills
+        //Can the player be hit by NPC? Defaults to true
         public override bool CanBeHitByNPC(NPC npc, ref int cooldownSlot)
         {
+            //Check if player is currently invuln to any NPCs. Set from skills like Leap
+            foreach (NPC npcs in InvulnNPCs)
+                {
+                return false;
+                }
             return canBeHit;
+        }
+
+        //Not used by any abilities currently
+        public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
+        {
+            //ModifyHitByNPC shove to Ability children
+            foreach (Ability ability in ActiveAbilities)
+            {
+                ability.ModifyHitByNPC(npc, ref damage, ref crit);
+            }
+        }
+
+        //For movement in stuff like Evasion
+        public override void PostUpdateRunSpeeds()
+        {
+            foreach (Ability ability in ActiveAbilities)
+            {
+                ability.PostUpdateRunSpeeds();
+            }
         }
 
         //Drawing an effect on the character? Used by some abilities
         public override void DrawEffects(PlayerDrawInfo drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
         {
-            a = opacity;
-            fullBright = false;
-        }
-
-        //Do things on death. Related to some abilities
-        public override void UpdateDead()
-        {
-            //These are related to the stealth buff bug. If you die with it on (say from an arrown) these won't get reset
-            opacity = 1;
-            canBeHit = true;
+            foreach (Ability ability in ActiveAbilities)
+            {
+                ability.DrawEffects(drawInfo, ref  r, ref g, ref b, ref a, ref fullBright);
+            }
         }
 
         //On key presses
         public override void ProcessTriggers(TriggersSet triggersSet)
         {
+            //bool wtf = true;
             if (RealClasses.ability1.JustPressed)
             {
                 playerClass.UseAbility(RealClasses.ability1);
@@ -96,29 +126,13 @@ namespace RealClasses.Players
             #region Init
             if (firstFrame == true)
             {
+                //Cleanup abilities
+                ActiveAbilities.Clear();
                 //Cleanup cooldown bar
                 ModContent.GetInstance<RealClasses>().CooldownBar.Cleanup();
 
                 //Setting to test class. Abilities and cooldown bar will be constructed
                 playerClass = new TestClass(player, 100);
-
-                //Set player class. Add if cod ehere later to choose class
-                //if (player.name == "Unhallowed")
-                //{
-                //    playerClass = new WarriorClass(player, 100);
-                //}
-                //else if (player.name == "Greek" || player.name == "M4sterSplint3r")
-                //{
-                //    playerClass = new RogueClass(player, 100);
-                //}
-                //else if (player.name == "J3bacha")
-                //{
-                //    playerClass = new ZealotClass(player, 100);
-                //}
-                //else if (player.name == "Dawg")
-                //{
-                //    playerClass = new TestClass(player, 100);
-                //}
 
                 //Critical to set them to default here...
                 //else playerClass = new PlayerClass(player, 0);
@@ -126,6 +140,13 @@ namespace RealClasses.Players
             }
             #endregion Init
 
+            //PreUpdate shove to Ability children
+            foreach (Ability ability in ActiveAbilities)
+            {
+                ability.PreUpdate();
+            }
+
+            //Do I need to shove these seperately or should they be in Abilty's PreUpdate?
             //Run passives here since there's no sense of Update() in the Passive class
             playerClass.DoPassives();
             //Do cooldowns here since there's no sense of Update() in the Ability class

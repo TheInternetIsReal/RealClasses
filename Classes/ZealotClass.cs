@@ -11,7 +11,7 @@ namespace RealClasses.Classes
         {
             this.player = player;
             this.level = level;
-            ability1 = new HealBombAbility();
+            ability1 = new HealBombAbility(player);
             ModContent.GetInstance<RealClasses>().CooldownBar.SetButtons(ability1.GetButton(), ability1.GetButton(), ability1.GetButton(), ability1.GetButton(), ability1.GetButton());
         }
 

@@ -14,7 +14,7 @@ namespace RealClasses.Abilities
         int lifeLost;
         Color blood = new Color(255, 51, 51);
 
-        public BerserkAbility()
+        public BerserkAbility(Player player) : base(player)
         {
             //Get instance to the berserk UI button
             abilityButton = new BerserkButton();

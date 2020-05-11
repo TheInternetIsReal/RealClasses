@@ -21,25 +21,5 @@ namespace RealClasses.Buffs
             Main.buffNoTimeDisplay[Type] = false;
             
         }
-
-        public override void Update(Player player, ref int buffIndex)
-        {
-            //Look stealthy      
-            player.GetModPlayer<MyPlayer>().opacity = 255;
-            //Be stealthy
-            //...Actually be invincible for now...
-            player.GetModPlayer<MyPlayer>().canBeHit = false;
-            //Be quick
-            player.moveSpeed = 3;
-
-            //Put opacity back to normal 1 frame before the buff wears off
-            if (player.buffTime[buffIndex] < 2)
-            {
-                player.GetModPlayer<MyPlayer>().opacity = 1;
-                player.GetModPlayer<MyPlayer>().canBeHit = true;
-            }
-
-            //Lose enemies targeting with player.aggro
-        }
     }
 }

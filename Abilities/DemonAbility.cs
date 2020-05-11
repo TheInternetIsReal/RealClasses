@@ -7,7 +7,7 @@ namespace RealClasses.Abilities
 {
     public class DemonAbility : Ability
     {
-        public DemonAbility()
+        public DemonAbility(Player player) : base(player)
         {
             abilityButton = new DemonButton();
             abilityButton.SetOpaque(true);

@@ -1,24 +1,31 @@
 ﻿using Terraria;
 using RealClasses.UI;
 using RealClasses.UI.AbilityButtons;
+using Terraria.ModLoader;
+using Terraria.DataStructures;
 
 namespace RealClasses.Abilities
 {
     public abstract class Ability
     {
+        //Should probably add texture in here and shove it to AbilityButton
+        protected Player player;
         protected AbilityButton abilityButton;
         protected int cooldown;
         protected int cooldownCounter;
+        protected int duration;
+        protected int durationCounter;
 
         //Must have an ability and a cooldown. Maybe send these in via the method later if needed
-        public Ability()
+        public Ability(Player player)
         {
             abilityButton = new AbilityButton();
             cooldownCounter = 0;
             cooldown = 600;
+            this.player = player;
         }
 
-        //Must attach to a UI ability button to draw the texture and cooldown on the cooldown bar
+        //Let PlayerClass grab this Ability's AbilityButton safely
         public virtual AbilityButton GetButton()
         {
             return abilityButton;
@@ -46,6 +53,28 @@ namespace RealClasses.Abilities
         {
             abilityButton.SetCooldown(cooldown);
             cooldownCounter = cooldown;
+        }
+
+        //Pseudo PreUpdate shoved from MyPlayer
+        public virtual void PreUpdate()
+        {
+
+        }
+
+        //Pseudo ModifyHitByNPC shoved from MyPlayer
+        public virtual void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
+        {
+
+        }
+
+        public virtual void PostUpdateRunSpeeds()
+        {
+
+        }
+
+        public virtual void DrawEffects(PlayerDrawInfo drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
+        {
+
         }
     }
 }

@@ -19,7 +19,7 @@ namespace RealClasses.Abilities
         Vector2 normalizedLine; //Normalizes the line between the projectiel and target (mouse) so that it always flies the same speed
         Vector2 normalizedLineSpeed; //normalized line multiplied by the speed you desire
 
-        public HealBombAbility()
+        public HealBombAbility(Player player) : base(player)
         {
             //Get instance to the berserk UI button
             abilityButton = new HealBombButton();
