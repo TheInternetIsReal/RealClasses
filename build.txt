@@ -1,4 +1,4 @@
 displayName = RealClasses
 author = TheInternetIsReal
-version = 1.1.9
-notes = Refactored code to implement correct encapsulation and getters/setters across classes. Reduced damage of Demon Minion from 100 to 50. Changed berserk buff to 3 stacks max, cost 10% hp for 10% dmg per stack, max +30% dmg.
+version = 1.2
+notes = Added hooks from ModPLayer methods to send to Ability classes. Added Leap ability. Refactored Evasion ability to no longer need a Buff.
