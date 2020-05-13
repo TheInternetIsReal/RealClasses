@@ -18,6 +18,8 @@ namespace RealClasses
         public static ModHotKey ability2;
         public static ModHotKey ability3;
         public static ModHotKey ability4;
+        public static ModHotKey ability5;
+        public static List<ModHotKey> hotKeys;
 
         ////UI
         //CooldownBar
@@ -38,10 +40,17 @@ namespace RealClasses
             mod = this;
 
             //These show up in the Controls -> Key Bind section of the menu in game
+            hotKeys = new List<ModHotKey>();
             ability1 = RegisterHotKey("Ability #1", "R");
+            hotKeys.Add(ability1);
             ability2 = RegisterHotKey("Ability #2", "F");
+            hotKeys.Add(ability2);
             ability3 = RegisterHotKey("Ability #3", "C");
+            hotKeys.Add(ability3);
             ability4 = RegisterHotKey("Ability #4", "G");
+            hotKeys.Add(ability4);
+            ability5 = RegisterHotKey("Ability #5", "E");
+            hotKeys.Add(ability5);
 
             //Cooldown bar setup
             CooldownBar = new CooldownBar();

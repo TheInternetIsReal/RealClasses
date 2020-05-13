@@ -100,7 +100,16 @@ namespace RealClasses.Players
         //On key presses
         public override void ProcessTriggers(TriggersSet triggersSet)
         {
-            //bool wtf = true;
+            foreach (ModHotKey hotKey in RealClasses.hotKeys)
+            {
+                if (hotKey.JustPressed)
+                {
+                    playerClass.UseAbility(hotKey);
+                }
+            }
+
+
+            /*
             if (RealClasses.ability1.JustPressed)
             {
                 playerClass.UseAbility(RealClasses.ability1);
@@ -117,6 +126,7 @@ namespace RealClasses.Players
             {
                 playerClass.UseAbility(RealClasses.ability4);
             }
+            */
 
         }
 

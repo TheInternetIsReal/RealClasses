@@ -1,5 +1,6 @@
-1. More abilities
 2. Choose class in gui
 3. Saving and loading
 4. Experience system and bar
 5. Progression for each class
+6. More abilities
+7. Whos hould be setting up the cooldown bar and ability butons? Player or PlayerClass?

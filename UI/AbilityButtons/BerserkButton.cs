@@ -27,6 +27,11 @@ namespace RealClasses.UI
             //Gets the top left point of whatever this UIElement is appended to. Screen by default but should be the top left of a panel etc
             CalculatedStyle dimensions = base.GetDimensions();
 
+            if (IsMouseHovering)
+            {
+                Main.hoverItemName = description;
+            }
+
             //I would GET cooldown here but I made Ability graba copy of this, not vice versa
             if (cooldown > 0)
             {

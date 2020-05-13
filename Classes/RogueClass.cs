@@ -13,7 +13,7 @@ namespace RealClasses.Classes
             this.level = level;
             //Set ability manually for now
             ability1 = new EvasionAbility(player);
-            ModContent.GetInstance<RealClasses>().CooldownBar.SetButtons(ability1.GetButton(), ability1.GetButton(), ability1.GetButton(), ability1.GetButton(), ability1.GetButton());
+            //ModContent.GetInstance<RealClasses>().CooldownBar.SetButtons(ability1.GetButton(), ability1.GetButton(), ability1.GetButton(), ability1.GetButton(), ability1.GetButton());
         }
 
         //Remove this when he gets passives

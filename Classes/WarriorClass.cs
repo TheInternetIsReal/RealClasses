@@ -19,7 +19,7 @@ namespace RealClasses.Classes
             ability1 = new BerserkAbility(player);
             primaryPassive = new LifeRegenPassive();
             //Fill up cooldown bar with abilities
-            ModContent.GetInstance<RealClasses>().CooldownBar.SetButtons(ability1.GetButton(), ability1.GetButton(), ability1.GetButton(), ability1.GetButton(), primaryPassive.GetButton());
+            //ModContent.GetInstance<RealClasses>().CooldownBar.SetButtons(ability1.GetButton(), ability1.GetButton(), ability1.GetButton(), ability1.GetButton(), primaryPassive.GetButton());
         }
 
         public override void UseAbility(ModHotKey key)

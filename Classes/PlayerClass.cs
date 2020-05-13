@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.ModLoader;
 using RealClasses.Abilities;
 using RealClasses.Passives;
+using Terraria.UI;
 
 namespace RealClasses.Classes
 {
@@ -17,6 +18,8 @@ namespace RealClasses.Classes
         protected int level;
         protected Ability ability1;
         protected Passive primaryPassive;
+        protected List<UIElement> buttons;
+        protected List<Ability> abilities;
         //Stats to come?
 
         //We at least need a player, and level later. This should eventually force 4 abilities and one passive, unless classes can have less than that many skills...
@@ -24,6 +27,8 @@ namespace RealClasses.Classes
         {
             this.player = player;
             this.level = level;
+            buttons = new List<UIElement>();
+            abilities = new List<Ability>();
         }
 
         //Shoves the ModHotKey binding to the ability button to show on the CooldowBar. Heavily chained but required due to lack of Update() past this point

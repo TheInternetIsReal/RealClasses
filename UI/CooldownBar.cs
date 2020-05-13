@@ -1,27 +1,27 @@
 ﻿using Terraria.UI;
-using RealClasses.Abilities;
 using RealClasses.UI.BuildingBlocks;
-using RealClasses.Classes;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using RealClasses.UI.AbilityButtons;
+using System.Collections.Generic;
 
 namespace RealClasses.UI
 {
     public class CooldownBar : UIState
     {
-        //public BerserkButton berserkButton;
-        //UIElement button1 = new BerserkButton();
+        //We inherit from UIState. A UISTate is like a palette that many UI elements should be placed on. It's the top level for a UI.
+
         DragableUIPanel Bar = new DragableUIPanel();
-        //BerserkButton button2 = new BerserkButton(5);
-        //BerserkButton button3 = new BerserkButton(10);
-        //BerserkButton button4 = new BerserkButton();
-        //LifeRegenButton button5 = new LifeRegenButton();
+        private float counter;
+        private static float padding = 6;
+        private float offset = padding / 2;
+        private float textureWidth = 64;
+        private float width = 0;
+        private float height = 0;
 
         //This should be a list later
         public override void OnInitialize()
         {
+            counter = 1;
+
             // Here we define our container UIElement. In DragableUIPanel.cs, you can see that DragableUIPanel is a UIPanel with a couple added features.
             Bar = new DragableUIPanel();
             Bar.SetPadding(6f);
@@ -29,12 +29,13 @@ namespace RealClasses.UI
             // This means that this class, ExampleUI, will be our Parent. Since ExampleUI is a UIState, the Left and Top are relative to the top left of the screen.
             Bar.Left.Set(800f, 0f);
             Bar.Top.Set(800f, 0f);
-            Bar.Width.Set(346f, 0f);
-            Bar.Height.Set(76f, 0f);
+            //Bar.Width.Set(346f, 0f);
+            Bar.Width.Set(width, 0f);
+            //Bar.Height.Set(76f, 0f);
+            Bar.Height.Set(height, 0f);
             Bar.BackgroundColor = new Color(73, 94, 171);
 
             Append(Bar);
-
         }
 
         public void Cleanup()
@@ -42,8 +43,27 @@ namespace RealClasses.UI
             Bar.RemoveAllChildren();
         }
 
-        public void SetButtons(UIElement button1, UIElement button2, UIElement button3, UIElement button4, UIElement passive1)
+        
+        public void SetButtons(List<UIElement> buttons)
         {
+            foreach (UIElement button in buttons)
+            {
+                //64 + 3 = 67 pixels for each button
+                button.Left.Set(((textureWidth + offset) * counter) - textureWidth, 0);
+                Bar.Append(button);
+                counter++;
+            }
+
+            Bar.Width.Set((textureWidth + padding) * (counter - 1), 0f);
+            Bar.Height.Set(76f, 0f);
+            counter = 1;
+            Bar.Recalculate();
+        }
+
+
+        public void SetButtons(UIElement button1, UIElement button2, UIElement button3, UIElement button4, UIElement passive1)
+        { 
+        
             button1.Left.Set(0, 0f);
             button1.Top.Set(0, 0f);
             Bar.Append(button1);
@@ -63,6 +83,7 @@ namespace RealClasses.UI
             passive1.Left.Set(270, 0f);
             passive1.Top.Set(0, 0f);
             Bar.Append(passive1);
+        
         }
     }
 }

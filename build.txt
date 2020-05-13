@@ -1,4 +1,4 @@
 displayName = RealClasses
 author = TheInternetIsReal
-version = 1.2
-notes = Added hooks from ModPLayer methods to send to Ability classes. Added Leap ability. Refactored Evasion ability to no longer need a Buff.
+version = 1.2.1
+notes = Refactored cooldown bar and abilities to be dynamic in size and key bindings. ALso added hover-overs for ability buttons. Added 5 abilities for now.

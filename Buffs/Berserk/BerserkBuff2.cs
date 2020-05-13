@@ -14,7 +14,7 @@ namespace RealClasses.Buffs.Berserk
         //Set the defaults of the buff
         {
             DisplayName.SetDefault("Berserk");
-            Description.SetDefault("+20% damage. Pay 10% health to deal 10% more damage. Stacks 3 times");
+            Description.SetDefault("+20% damage");
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = false;
 

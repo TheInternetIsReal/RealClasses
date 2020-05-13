@@ -15,6 +15,7 @@ namespace RealClasses.Abilities
         protected int cooldownCounter;
         protected int duration;
         protected int durationCounter;
+        protected ModHotKey hotKey;
 
         //Must have an ability and a cooldown. Maybe send these in via the method later if needed
         public Ability(Player player)
@@ -23,6 +24,17 @@ namespace RealClasses.Abilities
             cooldownCounter = 0;
             cooldown = 600;
             this.player = player;
+        }
+
+        //Give the ability a hotkey
+        public void SetHotKey(ModHotKey hotKey)
+        {
+            this.hotKey = hotKey;
+        }
+
+        public ModHotKey GetHotKey()
+        {
+            return this.hotKey;
         }
 
         //Let PlayerClass grab this Ability's AbilityButton safely
