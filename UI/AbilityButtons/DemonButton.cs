@@ -19,11 +19,13 @@ namespace RealClasses.UI.AbilityButtons
             ImageScale = 1f;
             base.Width.Set((float)this._texture.Width, 0f);
             base.Height.Set((float)this._texture.Height, 0f);
+            description = "Demon Imp:\nLet your Imp do your bidding.\nThe Imp will attack enemies within line of sight for 50 damage every second";
         }
 
         //This essentially draws itself, but not until it's in a UIState that is drawn in Mod
         public override void Draw(SpriteBatch spriteBatch)
         {
+
             //Gets the top left point of whatever this UIElement is appended to. Screen by default but could be the top left of a panel etc
             CalculatedStyle dimensions = base.GetDimensions();
             //Draw it the the top left of its parent
@@ -39,6 +41,10 @@ namespace RealClasses.UI.AbilityButtons
 
             Utils.DrawBorderStringFourWay(spriteBatch, Main.fontMouseText, hotKey, dimensions.X, dimensions.Y, Color.White, Color.Black, new Vector2(0f), ImageScale * 0.5f);
 
+            if (IsMouseHovering)
+            {
+                Main.hoverItemName = description;
+            }
         }
     }
 }

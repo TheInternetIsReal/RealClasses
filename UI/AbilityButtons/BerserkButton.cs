@@ -18,6 +18,7 @@ namespace RealClasses.UI
             base.Width.Set((float)this._texture.Width, 0f);
             base.Height.Set((float)this._texture.Height, 0f);
             ImageScale = 1f;
+            description = "Berserk:\nHurt yourself to hurt them more.\nSacrifice 10% hp to gain 10% extra damage to any attack for 8 seconds.\nStacks 3 times";
         }
 
         //This essentially draws itself, but not until it's in a UIState that is drawn in Mod

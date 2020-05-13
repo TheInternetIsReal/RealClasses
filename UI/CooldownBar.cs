@@ -46,32 +46,22 @@ namespace RealClasses.UI
         {
             button1.Left.Set(0, 0f);
             button1.Top.Set(0, 0f);
-            button1.Width.Set(0, 0f);
-            button1.Height.Set(0, 0f);
             Bar.Append(button1);
 
             button2.Left.Set(67, 0f);
             button2.Top.Set(0, 0f);
-            button2.Width.Set(0, 0f);
-            button2.Height.Set(0, 0f);
             Bar.Append(button2);
 
             button3.Left.Set(134, 0f);
             button3.Top.Set(0, 0f);
-            button3.Width.Set(0, 0f);
-            button3.Height.Set(0, 0f);
             Bar.Append(button3);
 
             button4.Left.Set(201, 0f);
             button4.Top.Set(0, 0f);
-            button4.Width.Set(0, 0f);
-            button4.Height.Set(0, 0f);
             Bar.Append(button4);
 
             passive1.Left.Set(270, 0f);
             passive1.Top.Set(0, 0f);
-            passive1.Width.Set(0, 0f);
-            passive1.Height.Set(0, 0f);
             Bar.Append(passive1);
         }
     }
