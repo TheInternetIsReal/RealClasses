@@ -1,8 +1,16 @@
-5. Progression for each class
-3. Saving and loading
-2. Choose class in gui
-4. Experience system and bar
+To do
+---
+0. Finish up current classes - Add them to class select ui
+1. Experience system and bar
+2. Saving and loading
+3. Progression for each class
+4. More abilities
 
-6. More abilities
-7. Whos hould be setting up the cooldown bar and ability butons? Player or PlayerClass?
-8. Net code optimizations
+Later considerations
+---
+- Should the PlayerClass or Player be setting up the cooldownbar?
+- Net code optimizations
+- CanBeHitByNPC has a lsit in it that is fully cleared by leap isntead of picking and choosing waht to remove
+- PlayerClass and even Ability does not need children in the future in the constructor requirements don't get too crazy, similar to how I implemented ClassChangeButton
+	I was probably not realizing I could keep each class's progression system seperate from it's actual instantiation early on
+- UI code currently feels like a mess... but it works...
