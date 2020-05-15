@@ -37,6 +37,41 @@ namespace RealClasses.Players
 
         ////Methods////
 
+        public void ChangeClass(string className)
+        {
+            //If a class is set
+            if (playerClass != null)
+            {
+                //Cleanup current ability hooks
+                ActiveAbilities.Clear();
+                //Cleanup cooldown bar
+                ModContent.GetInstance<RealClasses>().CooldownBar.Cleanup();
+            }
+
+            //Setting to test class. Abilities and cooldown bar will be constructed
+            if (className == "Test")
+            {
+                playerClass = new TestClass(player, 100);
+            }
+            else if (className == "Warrior")
+            {
+                playerClass = new WarriorClass(player, 100);
+            }
+            else if (className == "Zealot")
+            {
+                playerClass = new ZealotClass(player, 100);
+            }
+            else if (className == "Rogue")
+            {
+                playerClass = new RogueClass(player, 100);
+            }
+            else if (className == "Summoner")
+            {
+                playerClass = new SummonerClass(player, 100);
+            }
+        }
+        
+        ///Hooks///
         public override void Initialize()
         {
             //This happens during character select screen. Possible a good place to load things if not in RealClasses.Load()
@@ -56,6 +91,70 @@ namespace RealClasses.Players
             //Set in combat
             outOfCombat = false;
             outOfCombatCounter = outOfCombatFrames;
+        }
+
+        //Happens every frame
+        public override void PreUpdate()
+        {
+            #region Init
+            if (firstFrame == true)
+            {
+                //ChangeClass("What");
+                /*
+                //Cleanup abilities
+                ActiveAbilities.Clear();
+                //Cleanup cooldown bar
+                ModContent.GetInstance<RealClasses>().CooldownBar.Cleanup();
+
+                //Setting to test class. Abilities and cooldown bar will be constructed
+                playerClass = new TestClass(player, 100);
+
+                //Critical to set them to default here...
+                //else playerClass = new PlayerClass(player, 0);
+                firstFrame = false;
+                */
+            }
+            #endregion Init
+
+            if (playerClass != null)
+            {
+                //Do I need to shove these seperately or should they be in Abilty's PreUpdate?
+                //Run passives here since there's no sense of Update() in the Passive class
+                playerClass.DoPassives();
+                //Do cooldowns here since there's no sense of Update() in the Ability class
+                playerClass.DoCooldowns();
+                //Give UI buttons their hotkeys through a daisy chain since there is no sense of Update() in the Ability class
+                playerClass.GiveHotKeys();
+            }
+
+            //PreUpdate shove to Ability children
+            foreach (Ability ability in ActiveAbilities)
+            {
+                ability.PreUpdate();
+            }
+
+            //Set out of combat
+            if (outOfCombatCounter == 0)
+            {
+                outOfCombat = true;
+                outOfCombatCounter = 0;
+            }
+            else outOfCombatCounter--;
+        }
+
+        //On key presses
+        public override void ProcessTriggers(TriggersSet triggersSet)
+        {
+            foreach (ModHotKey hotKey in RealClasses.hotKeys)
+            {
+                if (hotKey.JustPressed)
+                {
+                    if (playerClass != null)
+                    {
+                        playerClass.UseAbility(hotKey);
+                    }
+                }
+            }
         }
 
         //Can the player be hit by NPC? Defaults to true
@@ -88,89 +187,13 @@ namespace RealClasses.Players
             }
         }
 
-        //Drawing an effect on the character? Used by some abilities
+        //Drawing an effect on the character. Used by some abilities
         public override void DrawEffects(PlayerDrawInfo drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
         {
             foreach (Ability ability in ActiveAbilities)
             {
                 ability.DrawEffects(drawInfo, ref  r, ref g, ref b, ref a, ref fullBright);
             }
-        }
-
-        //On key presses
-        public override void ProcessTriggers(TriggersSet triggersSet)
-        {
-            foreach (ModHotKey hotKey in RealClasses.hotKeys)
-            {
-                if (hotKey.JustPressed)
-                {
-                    playerClass.UseAbility(hotKey);
-                }
-            }
-
-
-            /*
-            if (RealClasses.ability1.JustPressed)
-            {
-                playerClass.UseAbility(RealClasses.ability1);
-            }
-            else if (RealClasses.ability2.JustPressed)
-            {
-                playerClass.UseAbility(RealClasses.ability2);
-            }
-            else if (RealClasses.ability3.JustPressed)
-            {
-                playerClass.UseAbility(RealClasses.ability3);
-            }
-            else if (RealClasses.ability4.JustPressed)
-            {
-                playerClass.UseAbility(RealClasses.ability4);
-            }
-            */
-
-        }
-
-        //Happens every frame
-        public override void PreUpdate()
-        {
-            #region Init
-            if (firstFrame == true)
-            {
-                //Cleanup abilities
-                ActiveAbilities.Clear();
-                //Cleanup cooldown bar
-                ModContent.GetInstance<RealClasses>().CooldownBar.Cleanup();
-
-                //Setting to test class. Abilities and cooldown bar will be constructed
-                playerClass = new TestClass(player, 100);
-
-                //Critical to set them to default here...
-                //else playerClass = new PlayerClass(player, 0);
-                firstFrame = false;
-            }
-            #endregion Init
-
-            //PreUpdate shove to Ability children
-            foreach (Ability ability in ActiveAbilities)
-            {
-                ability.PreUpdate();
-            }
-
-            //Do I need to shove these seperately or should they be in Abilty's PreUpdate?
-            //Run passives here since there's no sense of Update() in the Passive class
-            playerClass.DoPassives();
-            //Do cooldowns here since there's no sense of Update() in the Ability class
-            playerClass.DoCooldowns();
-            //Give UI buttons their hotkeys through a daisy chain since there is no sense of Update() in the Ability class
-            playerClass.GiveHotKeys();
-
-            //Set out of combat
-            if (outOfCombatCounter == 0)
-            {
-                outOfCombat = true;
-                outOfCombatCounter = 0;
-            }
-            else outOfCombatCounter--;
         }
     }
 }

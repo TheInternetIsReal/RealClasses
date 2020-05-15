@@ -72,7 +72,7 @@ namespace RealClasses
             if (mouseTextIndex != -1)
             {
                 layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer(
-                    "ExampleMod: Coins Per Minute",
+                    "RealClasses UI",
                     delegate
                     {
                         _cooldownBar.Draw(Main.spriteBatch, new GameTime());

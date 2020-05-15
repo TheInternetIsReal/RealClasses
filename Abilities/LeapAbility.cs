@@ -91,6 +91,7 @@ namespace RealClasses.Abilities
                                 //Damage them and send them downwards
                                 npcs.StrikeNPC(fallingDmg, 1, 0, false, false, false);
                                 npcs.velocity.Y = 10;
+                                npcs.netUpdate = true;
                             }
                         }
                     }
@@ -127,7 +128,7 @@ namespace RealClasses.Abilities
                         {
                             //Damage them and pop them up for a frame
                             npcs.StrikeNPC(slamDmg, 1, 0, false, false, false);
-                            npcs.velocity.Y = -6;
+                            npcs.velocity.Y = -6;                
 
                             //Check what side of the player they are on and shove them away a bit
                             xDistance = npcs.position.X - player.position.X;
@@ -135,7 +136,9 @@ namespace RealClasses.Abilities
                             {
                                 npcs.velocity.X = -1;
                             }
-                            else npcs.velocity.X = 1;                          
+                            else npcs.velocity.X = 1;
+
+                            npcs.netUpdate = true;
                         }
                     }
                 }

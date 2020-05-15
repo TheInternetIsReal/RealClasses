@@ -2,6 +2,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using RealClasses.Abilities;
+using RealClasses.Players;
 
 namespace RealClasses.Classes
 {
@@ -11,15 +12,20 @@ namespace RealClasses.Classes
         {
             this.player = player;
             this.level = level;
-            //Set ability manually for now
+
+            //Set abilities and hotkeys manually for now. Set it to active so player hooks work on it. Add ability and their buttons to lists for work later
+            //Should be taking in and working over a list of abilities later
             ability1 = new EvasionAbility(player);
-            //ModContent.GetInstance<RealClasses>().CooldownBar.SetButtons(ability1.GetButton(), ability1.GetButton(), ability1.GetButton(), ability1.GetButton(), ability1.GetButton());
+            player.GetModPlayer<MyPlayer>().ActiveAbilities.Add(ability1);
+            buttons.Add(ability1.GetButton());
+            abilities.Add(ability1);
+
+            //Give each ability a ModHotKey if they are available
+            SetHotKeys();
+
+            //Fill up cooldown bar with abilities
+            ModContent.GetInstance<RealClasses>().CooldownBar.SetButtons(buttons);
         }
 
-        //Remove this when he gets passives
-        public override void DoPassives()
-        {
-
-        }
     }
 }

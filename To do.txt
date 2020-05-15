@@ -1,6 +1,8 @@
-2. Choose class in gui
-3. Saving and loading
-4. Experience system and bar
 5. Progression for each class
+3. Saving and loading
+2. Choose class in gui
+4. Experience system and bar
+
 6. More abilities
 7. Whos hould be setting up the cooldown bar and ability butons? Player or PlayerClass?
+8. Net code optimizations

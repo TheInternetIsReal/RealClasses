@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
@@ -15,6 +16,7 @@ namespace RealClasses.UI.BuildingBlocks
         // Stores the offset from the top left of the UIPanel while dragging.
         private Vector2 offset;
         public bool dragging;
+        public bool visible = true;
 
         //On mouse down...
         public override void MouseDown(UIMouseEvent evt)
@@ -46,8 +48,8 @@ namespace RealClasses.UI.BuildingBlocks
             dragging = false;
 
             //We have the mosue position but need to set it to the top left of the panel instead
-            Left.Set(end.X - offset.X, 0f);
-            Top.Set(end.Y - offset.Y, 0f);
+            //Left.Set(end.X - offset.X, 0f);
+            //Top.Set(end.Y - offset.Y, 0f);
 
             //Not sure...
             Recalculate();
@@ -82,6 +84,15 @@ namespace RealClasses.UI.BuildingBlocks
                 Top.Pixels = Utils.Clamp(Top.Pixels, 0, parentSpace.Bottom - Height.Pixels);
                 // Recalculate forces the UI system to do the positioning math again.
                 Recalculate();
+            }
+        }
+
+        //Need to do this but to drawself. This didn't work. Do Deactivate or something?
+        protected override void DrawSelf(SpriteBatch spriteBatch)
+        {
+            if (visible == true)
+            {
+                base.DrawSelf(spriteBatch);
             }
         }
     }

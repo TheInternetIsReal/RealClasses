@@ -3,6 +3,7 @@ using Terraria.ModLoader;
 using RealClasses.Abilities;
 using RealClasses.Passives;
 using static Terraria.ModLoader.ModContent;
+using RealClasses.Players;
 
 namespace RealClasses.Classes
 {
@@ -15,23 +16,23 @@ namespace RealClasses.Classes
         {
             this.player = player;
             this.level = level;
-            //Set ability manually for now
-            ability1 = new BerserkAbility(player);
-            primaryPassive = new LifeRegenPassive();
-            //Fill up cooldown bar with abilities
-            //ModContent.GetInstance<RealClasses>().CooldownBar.SetButtons(ability1.GetButton(), ability1.GetButton(), ability1.GetButton(), ability1.GetButton(), primaryPassive.GetButton());
-        }
 
-        public override void UseAbility(ModHotKey key)
-        {
-            if (key == RealClasses.ability1)
-            {
-                ability1.UseAbility(player);
-            }
-            else if (key == RealClasses.ability2)
-            {
-                ability1.UseAbility(player);
-            }
-        }     
+            //Set abilities and hotkeys manually for now. Set it to active so player hooks work on it. Add ability and their buttons to lists for work later
+            //Should be taking in and working over a list of abilities later
+            ability1 = new BerserkAbility(player);
+            player.GetModPlayer<MyPlayer>().ActiveAbilities.Add(ability1);
+            buttons.Add(ability1.GetButton());
+            abilities.Add(ability1);
+
+            primaryPassive = new LifeRegenPassive();
+            buttons.Add(primaryPassive.GetButton());
+            passives.Add(primaryPassive);
+
+            //Give each ability a ModHotKey if they are available
+            SetHotKeys();
+
+            //Fill up cooldown bar with abilities
+            ModContent.GetInstance<RealClasses>().CooldownBar.SetButtons(buttons);
+        }
     }
 }

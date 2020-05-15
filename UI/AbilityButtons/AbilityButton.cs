@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.UI;
-using Terraria.GameContent.UI.Elements;
 using Terraria;
 
 namespace RealClasses.UI.AbilityButtons
@@ -81,6 +80,12 @@ namespace RealClasses.UI.AbilityButtons
         public override void MouseOut(UIMouseEvent evt)
         {
             base.MouseOut(evt);
+        }
+
+        //Overriding this to nothing prevents the bar from dragging when an ability is clicked
+        public override void MouseDown(UIMouseEvent evt)
+        {
+            //base.MouseOut(evt);
         }
 
         //public virtual void Draw(SpriteBatch spritebatch) { }
