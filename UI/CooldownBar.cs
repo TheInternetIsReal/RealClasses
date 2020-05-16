@@ -11,7 +11,7 @@ namespace RealClasses.UI
     {
         //We inherit from UIState. A UISTate is like a palette that many UI elements should be placed on. It's the top level for a UI.
 
-        //I instantiate instnaces here because these will ALWAYS be there in the UI. This helps because code below references these directly later on and assumes they are there
+        //I instantiate instances here because these will ALWAYS be there in the UI. This helps because code below references these directly later on and assumes they are there
         DragableUIPanel Bar = new DragableUIPanel();
         DragableUIPanel ClassPane = new DragableUIPanel();
         MenuButton classSelect = new ClassPaneButton(ModContent.GetTexture("Terraria/UI/ButtonPlay"));
@@ -19,6 +19,7 @@ namespace RealClasses.UI
         ClassSwitchButton testClassButton = new ClassSwitchButton(ModContent.GetTexture("RealClasses/Projectiles/Testprojectile"), "Test", "Test class for testing");
         ClassSwitchButton warriorClassButton = new ClassSwitchButton(ModContent.GetTexture("RealClasses/UI/AbilityButtons/BerserkButton"), "Warrior", "Warrior class");
         List<ClassSwitchButton> classButtons = new List<ClassSwitchButton>(); //used for ClassPane class selection buttons later
+        ExpBar expBar = new ExpBar();
         private float abilityCounter;
         private float menuCounter;
         private static float padding = 6;
@@ -59,6 +60,14 @@ namespace RealClasses.UI
             ClassPane.Append(testClassButton);
             warriorClassButton.Top.Set(128f, 0f);
             ClassPane.Append(warriorClassButton);
+
+            //ExpBar
+            expBar.SetPadding(6f);
+            expBar.Width.Set(400f, 0f);
+            expBar.Height.Set(200f, 0f);
+            expBar.Left.Set(Bar.Left.Pixels, 0f);
+            expBar.Top.Set(Bar.Top.Pixels - Bar.Height.Pixels - expBar.Height.Pixels, 0f);
+            Append(expBar);
         }
 
         public void Cleanup()

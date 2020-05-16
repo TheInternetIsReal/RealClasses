@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using RealClasses.Classes;
 using RealClasses.Abilities;
 using System.Collections.Generic;
+using RealClasses.Experience;
 
 
 namespace RealClasses.Players
@@ -25,6 +26,7 @@ namespace RealClasses.Players
 
         //For class choice (possibly do these in Mod.Load later)
         public PlayerClass playerClass;
+        public Exp exp;
 
         //A list of all current abilities instantiated on the player. Used to shove things like PreUpdate() to them since inheriting from ModPlayer was a fail
         //This list is called in every method below that is required by an ability later on
@@ -33,10 +35,12 @@ namespace RealClasses.Players
 
         //A list to hold NPCs that the player is invuln to currently. Used by skills like Leap
         public List<NPC> InvulnNPCs = new List<NPC>();
+        
 
 
         ////Methods////
 
+        //Change class. Cleanup stuff and reset abilities
         public void ChangeClass(string className)
         {
             //If a class is set
@@ -48,7 +52,7 @@ namespace RealClasses.Players
                 ModContent.GetInstance<RealClasses>().CooldownBar.Cleanup();
             }
 
-            //Setting to test class. Abilities and cooldown bar will be constructed
+            //Class choice and isntantiation
             if (className == "Test")
             {
                 playerClass = new TestClass(player, 100);
@@ -69,9 +73,14 @@ namespace RealClasses.Players
             {
                 playerClass = new SummonerClass(player, 100);
             }
+
+            //Exp setup
+            exp = new Exp();
         }
         
+
         ///Hooks///
+
         public override void Initialize()
         {
             //This happens during character select screen. Possible a good place to load things if not in RealClasses.Load()
@@ -96,26 +105,7 @@ namespace RealClasses.Players
         //Happens every frame
         public override void PreUpdate()
         {
-            #region Init
-            if (firstFrame == true)
-            {
-                //ChangeClass("What");
-                /*
-                //Cleanup abilities
-                ActiveAbilities.Clear();
-                //Cleanup cooldown bar
-                ModContent.GetInstance<RealClasses>().CooldownBar.Cleanup();
-
-                //Setting to test class. Abilities and cooldown bar will be constructed
-                playerClass = new TestClass(player, 100);
-
-                //Critical to set them to default here...
-                //else playerClass = new PlayerClass(player, 0);
-                firstFrame = false;
-                */
-            }
-            #endregion Init
-
+            //DO class related things/hooks
             if (playerClass != null)
             {
                 //Do I need to shove these seperately or should they be in Abilty's PreUpdate?
@@ -160,7 +150,7 @@ namespace RealClasses.Players
         //Can the player be hit by NPC? Defaults to true
         public override bool CanBeHitByNPC(NPC npc, ref int cooldownSlot)
         {
-            //Check if player is currently invuln to any NPCs. Set from skills like Leap
+            //Check if player is currently invuln to any NPCs. Set from skills like Leap. Will need to change this from dumb Clear() to specific removals klater
             foreach (NPC npcs in InvulnNPCs)
                 {
                 return false;
